@@ -1,5 +1,7 @@
 const canvas = document.querySelector('canvas');
 
+let clicked2 = false
+
 const context = canvas.getContext('2d');
 
 canvas.width = 1024;
@@ -114,7 +116,7 @@ const brenno = new NPC({
         max: 4,
     },
     name: 'Brenno',
-    dialogue: 'Oi, eu sou o Brenno!'
+    dialogue: "Hey! I'm Brenno! I will be your paw during the journey.. I was supposed to be your bestfriend but this implementation have not yet been built.. My creator is lazy and take a looong time to complete things. For now, talk with Maria. She's a trainer who you can battle with!"
 })
 
 const player = new Sprite({
@@ -286,6 +288,7 @@ function animate() {
             overlappingArea > (player.width * player.height) / 2 
             && Math.random() < 0.01) {
                 //battle from grass initiates
+                clicked2 = true
                 audio.Map.stop()
                 audio.initBattle.play()
                 audio.battle.play()
@@ -332,13 +335,16 @@ function animate() {
                             const npcDiv = document.querySelector('#npc-dialogue');
                             npcDiv.style.display = 'block';
                             npcDiv.innerHTML = character.dialogue;
+                            npcDiv.className = 'npcDiv'
                             dialogue.initiated = true
                             npcDiv.addEventListener('click', () => {
                                 npcDiv.style.display = 'none';
-                                lastKey = ''
+                                lastKey = 'W'
                                 dialogue.initiated = false;
                             })
                         } else {
+                            clicked2 = true
+                            lastKey = ''
                             interrogation.position.x = character.position.x + 8;
                             interrogation.position.y = character.position.y - 35                        
                             interrogation.draw()
@@ -371,53 +377,54 @@ function animate() {
                         }
                     }})
                 }
+                break;
         }
     }
 // Confere as zonas, se colidir com um personagem e um NPC trainer, dispara uma luta
-    for (let i = 0; i < charactersZones.length; i++) {
-        const characterZone = charactersZones[i];
-        if (rectangularCollisionForNPCBattleFront({
-            rectangle1: player,
-            rectangle2: {...characterZone, position: {
-                x: characterZone.position.x,
-                y: characterZone.position.y
-            }},
+   for (let i = 0; i < charactersZones.length; i++) {
+     const characterZone = charactersZones[i];
+       if (rectangularCollisionForNPCBattleFront({
+           rectangle1: player,
+           rectangle2: {...characterZone, position: {
+              x: characterZone.position.x,
+               y: characterZone.position.y
+           }},
         })) {
-            charactersArray.forEach((character) => {
-                if (character.position.x === characterZone.position.x) {
-                    if (character.isEnemy) {
-                        interrogation.position.x = character.position.x + 8;
-                        interrogation.position.y = character.position.y - 35                        
-                        interrogation.draw()
-                        //Initiates poketrainer battle
-                        audio.Map.stop()
-                        audio.initBattle.play()
-                        audio.battle.play()
-                        battle.initiated = true
-                        window.cancelAnimationFrame(animationId)
-                        gsap.to('#overlappingDiv', {
+           charactersArray.forEach((character) => {
+               if (character.position.x === characterZone.position.x) {
+                  if (character.isEnemy) {
+                       interrogation.position.x = character.position.x + 8;
+                     interrogation.position.y = character.position.y - 35                        
+                      interrogation.draw()
+                      //Initiates poketrainer battle
+                       audio.Map.stop()
+                       audio.initBattle.play()
+                       audio.battle.play()
+                       battle.initiated = true
+                   window.cancelAnimationFrame(animationId)
+                       gsap.to('#overlappingDiv', {
                             opacity: 1,
-                            repeat: 3,
-                            yoyo: true,
+                       repeat: 3,
+                           yoyo: true,
                             duration: 0.5,
                             onComplete() {
                                 gsap.to('#overlappingDiv', {
                                     opacity: 1,
-                                    duration: 0.4,
-                                    onComplete() {
-                                        initBattle()
-                                        animateBattle()
+                                   duration: 0.4,
+                                   onComplete() {s
+                                       initBattle()
+                                       animateBattle()
                                         gsap.to('#overlappingDiv', {
                                             opacity: 0,
-                                            duration: 0.4,
-                                        })
+                                           duration: 0.4,
+                                      })
                                     }
-                                })
+                              })
                             }
-                        })
-                    }
-                }
-            })
+                       })
+                   }
+               }
+          })
     }
 }
 // Confere as zonas de mapa. Se o player colidir com o bloco de entrada do mapa, vai pro novo mapa.
@@ -663,8 +670,7 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('keyup', (event) => {
     switch (event.key) {
         case 'e':
-            keys.e.pressed = true;
-            lastKey = 'e';
+            keys.e.pressed = false;
         break;
         case 'w':
            keys.w.pressed = false;
@@ -682,10 +688,9 @@ window.addEventListener('keyup', (event) => {
 })
 
 
-let clicked = false
 window.addEventListener('click', () => {
-    if (!clicked) {
+    if (!clicked2) {
     audio.Map.play()
-    clicked = true
+    clicked2 = true
     }
 })

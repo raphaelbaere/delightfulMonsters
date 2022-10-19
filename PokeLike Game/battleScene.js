@@ -104,7 +104,6 @@ buttons.forEach((button) => {
                             })
                             battle.initiated = false
                             audio.battle.stop()
-                            audio.Map.play()
                         }
                     })
                 })
