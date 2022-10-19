@@ -5,9 +5,15 @@
 <style>
     * {
         font-family: 'Press Start 2P', cursive;
+        overflow: hidden;
     }
     body {
         background-color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
     }
     #father-div {
         display: inline-block; 
@@ -125,8 +131,75 @@
         height: 100px;
         background-color: white;
     }
+    header {
+        display: flex;
+        justify-content: center;
+        color: white;
+        width: 100%;
+        margin: 10px auto;
+    }
+    canvas {
+        margin: 0 auto;
+    }
+    #controls {
+        text-align: center;
+        position: absolute;
+        color: white;
+        width: 10%;
+        left: 5px;
+        top: 80px;
+        border: 1px solid rgb(100, 100, 100);
+        padding: 10px;
+    }
+    #rights {
+        color: white;
+    }
+    .emote {
+        font-size: 36px;
+    }
+    .emote2 {
+        font-size: 30px;
+        margin-top: 10px;
+    }
+    #infos {
+        position: absolute;
+        top: 120px;
+        right: 5px;
+        width: 10%;
+        color: white;
+        border: 1px solid rgb(100, 100, 100);
+        padding: 10px;
+    }
+    #infosTitle {
+        text-align: center;
+    }
+    footer {
+        margin-top: 10px;
+    }
+    #infos-content {
+        text-align: left;
+        line-height: 30px;
+    }
 </style>
+<meta charset="UTF-8">
 </head>
+<header>
+    <h1 id="title">Delightful Monsters</h1>
+</header>
+<aside id="controls">
+    <h1>Controls</h1>
+    <p>W:Walk<span class="emote">&#11014</span></p>
+    <p>A:Walk<span class="emote">&#11013</span></p>
+    <p>S:Walk<span class="emote">&#11015</span></p>
+    <p>D:Walk<span class="emote">&#10145</span></p>
+    <p>E:Act<span class="emote">&#9995</span></p>
+    <p>Click: Skip<span class="emote2">&#128173</span></p>
+    <p>Click: Choose<span class="emote2">&#128173</span></p>
+</aside>
+<aside id="infos">
+<h1 id="infosTitle">Infos</h1>
+<p id="infos-content">This is just a demo. The full game is being built. Walking on grass triggers monster's battles.</p>
+</aside>
 <div id="father-div">
     <div id="overlappingDiv"></div>
     <canvas></canvas>
@@ -167,6 +240,9 @@
         </div>
     </div>
 </div>
+</div>
+<div>
+    <footer id="rights">Made by <a href="https://www.linkedin.com/in/raphael-baere/" target="_blank">Raphael Baere</a>©️</footer>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

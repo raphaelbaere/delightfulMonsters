@@ -54,7 +54,7 @@ buttons.forEach((button) => {
             queue.push(() => {
                 goldRacoon.faint()
                 audio.battle.stop()
-                audio.bruno.play()
+                audio.victory.play()
             })
             queue.push(() => {
                 //fade back to black
